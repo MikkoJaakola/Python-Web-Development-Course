@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, flash, redirect
 from flask_sqlalchemy import SQLAlchemy
 
 from flask_wtf import FlaskForm
@@ -43,6 +43,8 @@ def addForm():
 		db.session.commit()
 
 		print("added greeting")
+		flash("Added")
+		return redirect("/")		
 
 	return render_template("form-page.html", form=form)
 

@@ -11,6 +11,13 @@
 			<a href="/">Greetings</a> - 
 			<a href="/form-page">Add Greeting</a>
 		</nav>
+		{%if get_flashed_messages() %}
+			
+			{% for msg in get_flashed_messages() %}
+				<p>{{ msg }}</p>
+
+			{% endfor %}
+		{% endif %}
 		<h1>Greetings page</h1>
 		{% block content %}
 		{% endblock content %}
