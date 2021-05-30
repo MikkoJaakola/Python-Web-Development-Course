@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% for book in books %}
+		<p>{{ book.book }}: {{ book.plot}} - 
+		<a href="{{ book.id }}/edit">Edit</a> - 
+		<a href="{{ book.id }}/delete">Delete</a>
+		</p>
+	{% endfor %}
+
+{% endblock content %}
