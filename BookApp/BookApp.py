@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, redirect, session
+from flask import Flask, render_template, flash, redirect, session, abort
 from flask_sqlalchemy import SQLAlchemy
 
 from flask_wtf import FlaskForm
@@ -17,6 +17,10 @@ class Book(db.Model):
 	plot = db.Column(db.Text, nullable=False)
 	
 BookForm = model_form(Book, base_class=FlaskForm, db_session=db.session)
+
+def LoginRequired():
+	if not currentUser():
+		abort(403)
 
 class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -55,7 +59,7 @@ def loginView():
 		user = User.query.filter_by(email=email).first()
 		if not user:
 			flash("Login failed.")
-			print("No such user")
+			print("User not found")
 			return redirect("/user/login")
 		if not user.checkPassword(password):
 			flash("Login failed.")
@@ -64,7 +68,7 @@ def loginView():
 
 		session["uid"] = user.id
 
-		flash("Login successful.")
+		flash("Logged in.")
 		return redirect("/")
 		
 	return render_template("login.html", form=form)
@@ -80,7 +84,7 @@ def registerView():
 
 
 		if User.query.filter_by(email=email).first():
-			flash("User already exits! Please log in.")
+			flash("Just login, you have been already registered")
 			return redirect("/user/login")
 
 		user = User(email=email)
@@ -89,7 +93,7 @@ def registerView():
 		db.session.add(user)
 		db.session.commit()
 
-		flash("Registration successfull")
+		flash("You have been registered, please login")
 		return redirect("/user/login")
 
 	return render_template("register.html", form=form)
@@ -119,6 +123,7 @@ def index():
 
 @app.route("/<int:id>/delete")
 def deleteBook(id):
+	LoginRequired()
 	book = Book.query.get_or_404(id)
 	db.session.delete(book)
 	db.session.commit()
@@ -129,6 +134,7 @@ def deleteBook(id):
 @app.route("/<int:id>/edit", methods=["GET", "POST"])
 @app.route("/form-page", methods=["GET", "POST"])
 def addForm(id=None):
+	LoginRequired()
 	book = Book()
 	if id:
 		book = Book.query.get_or_404(id)
