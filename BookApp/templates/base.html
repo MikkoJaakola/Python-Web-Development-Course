@@ -9,7 +9,14 @@
 	<body>
 		<nav>
 			<a href="/">Books</a> - 
-			<a href="/form-page">Add Books</a>
+			<a href="/form-page">Add Books</a> - 
+			{% if currentUser() %}
+				<a href="/user/logout">Logout</a> - 
+				{{ currentUser().email }} - 
+			{% else %}
+				<a href="/user/login">Login</a> - 
+				<a href="/user/register">Register</a>
+			{% endif %}
 		</nav>
 		{%if get_flashed_messages() %}
 			
