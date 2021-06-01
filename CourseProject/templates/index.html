@@ -2,12 +2,15 @@
 
 {% block content %}
 	{% for song in songs %}
-		<p>{{ song.name }} - 
-		<a href="{{ song.id }}/edit">Edit</a> -
-                <a href="{{ song.id }}/delete">Delete</a> 
-		<br> {{ song.lyrics}} - 
-	
-		</p>
+		<div>
+			<h2>{{ song.name }}</h2>
+			<pre>
+			<a href="{{ song.id }}/edit">Edit</a> -
+		        <a href="{{ song.id }}/delete">Delete</a> 
+			<br> {{ song.lyrics}} - 
+		
+			</pre>
+		</div>
 	{% endfor %}
 
 {% endblock content %}
