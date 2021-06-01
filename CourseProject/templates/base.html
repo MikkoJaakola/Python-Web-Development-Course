@@ -2,14 +2,14 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Greetings page</title>
+		<title>Song book</title>
 		<meta charset="utf-8">
 
 	</head>
 	<body>
 		<nav>
-			<a href="/">Greetings</a> - 
-			<a href="/form-page">Add Greeting</a>
+			<a href="/">Songs</a> - 
+			<a href="/form-page">Add Song</a>
 		</nav>
 		{%if get_flashed_messages() %}
 			
@@ -18,7 +18,7 @@
 
 			{% endfor %}
 		{% endif %}
-		<h1>Greetings page</h1>
+		<h1>Song book</h1>
 		{% block content %}
 		{% endblock content %}
 	</body>

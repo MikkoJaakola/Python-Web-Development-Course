@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-	{% for greeting in greetings %}
-		<p>{{ greeting.name }} - 
-		<a href="{{ greeting.id }}/edit">Edit</a> -
-                <a href="{{ greeting.id }}/delete">Delete</a> 
-		<br> {{ greeting.greeting}} - 
+	{% for song in songs %}
+		<p>{{ song.name }} - 
+		<a href="{{ song.id }}/edit">Edit</a> -
+                <a href="{{ song.id }}/delete">Delete</a> 
+		<br> {{ song.lyrics}} - 
 	
 		</p>
 	{% endfor %}

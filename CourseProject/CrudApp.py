@@ -8,57 +8,57 @@ app = Flask(__name__)
 app.secret_key = "aez2Caipootohd2ahph1zie5aefoh0"
 db = SQLAlchemy(app)
 
-class Greeting(db.Model):
+class Song(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	greeting = db.Column(db.Text, nullable=False)
+	lyrics = db.Column(db.Text, nullable=False)
 	name = db.Column(db.String, nullable=False)
 
-GreetingForm = model_form(Greeting, base_class=FlaskForm, db_session=db.session)
+SongForm = model_form(Song, base_class=FlaskForm, db_session=db.session)
 
 @app.before_first_request
 def initMe():
 	db.create_all()
 
-	greeting = Greeting(greeting="Kato terve!", name="Pulkkinen")
-	db.session.add(greeting)
+	song = Song(lyrics="Kato terve!", name="Pulkkinen")
+	db.session.add(song)
 
-	greeting = Greeting(greeting="No terve", name="Sauli")
-	db.session.add(greeting)
+	song = Song(lyrics="No terve", name="Sauli")
+	db.session.add(song)
 	db.session.commit()
 
 @app.route("/")
 def index():
-	greetings = Greeting.query.all()
-	return render_template("index.html", greetings=greetings)
+	songs = Song.query.all()
+	return render_template("index.html", songs=songs)
 
 @app.route("/<int:id>/delete")
-def deleteGreeting(id):
-	greeting = Greeting.query.get_or_404(id)
-	db.session.delete(greeting)
+def deleteSong(id):
+	song = Song.query.get_or_404(id)
+	db.session.delete(song)
 	db.session.commit()
 
-	flash("Greeting deleted")
+	flash("Song deleted")
 	return redirect("/")
 
 @app.route("/<int:id>/edit", methods=["GET", "POST"])
 @app.route("/form-page", methods=["GET", "POST"])
 def addForm(id=None):
-	greeting = Greeting()
+	song = Song()
 	if id:
-		greeting = Greeting.query.get_or_404(id)
+		song = Song.query.get_or_404(id)
 	
 		
 
-	form = GreetingForm(obj=greeting)
+	form = SongForm(obj=song)
 
 	if form.validate_on_submit():
 		
-		form.populate_obj(greeting)
+		form.populate_obj(song)
 		
-		db.session.add(greeting)
+		db.session.add(song)
 		db.session.commit()
 
-		print("added greeting")
+		print("added song")
 		flash("Added")
 		return redirect("/")		
 
