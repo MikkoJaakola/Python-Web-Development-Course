@@ -2,9 +2,11 @@
 
 {% block content %}
 	{% for greeting in greetings %}
-		<p>{{ greeting.name }}: {{ greeting.greeting}} - 
-		<a href="{{ greeting.id }}/edit">Edit</a> - 
-		<a href="{{ greeting.id }}/delete">Delete</a>
+		<p>{{ greeting.name }} - 
+		<a href="{{ greeting.id }}/edit">Edit</a> -
+                <a href="{{ greeting.id }}/delete">Delete</a> 
+		<br> {{ greeting.greeting}} - 
+	
 		</p>
 	{% endfor %}
 

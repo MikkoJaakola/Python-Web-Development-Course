@@ -10,7 +10,7 @@ db = SQLAlchemy(app)
 
 class Greeting(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	greeting = db.Column(db.String, nullable=False)
+	greeting = db.Column(db.Text, nullable=False)
 	name = db.Column(db.String, nullable=False)
 
 GreetingForm = model_form(Greeting, base_class=FlaskForm, db_session=db.session)
