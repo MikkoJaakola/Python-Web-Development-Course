@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% for greeting in greetings %}
+		<p>{{ greeting.name }}: {{ greeting.greeting}} - 
+		<a href="{{ greeting.id }}/edit">Edit</a> - 
+		<a href="{{ greeting.id }}/delete">Delete</a>
+		</p>
+	{% endfor %}
+
+{% endblock content %}
